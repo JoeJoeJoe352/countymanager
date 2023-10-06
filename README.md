@@ -10,4 +10,4 @@ Projekt beüzemelése:
 tesztek futtatása:
 - countymanager_test tábla létrehozása
 - php vendor\bin\phpunit parancsal lefutnak a tesztek
-- egyedi teszteset lefuttatása: "composer test SaveTest test_error_creating_wrong_county"
+- egyedi teszteset lefuttatása: "vendor\bin\phpunit --filter test_error_delete_missing_id"

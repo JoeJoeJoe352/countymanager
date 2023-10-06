@@ -7,13 +7,14 @@ use Throwable;
 
 class Handler extends ExceptionHandler
 {
+
     /**
      * A list of the exception types that are not reported.
      *
      * @var array<int, class-string<Throwable>>
      */
     protected $dontReport = [
-        //
+            //
     ];
 
     /**
@@ -34,8 +35,21 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (Throwable $e) {
+        $this->reportable(function (Throwable $e)
+        {
             //
         });
+    }
+
+    public function render($request, \Throwable $exception)
+    {
+        if ($exception instanceof \Illuminate\Database\Eloquent\ModelNotFoundException)
+        {
+            return response()->json([
+                        'data' => $exception->getMessage()
+                            ], 404);
+        }
+
+        return parent::render($request, $exception);
     }
 }

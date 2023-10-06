@@ -37,9 +37,5 @@ Route::get('/varosok-listazasa', function (Request $request)
 });
 
 Route::post('/uj-varos', [CityController::class, "saveCity"]);
-Route::put('/varos-modositas/{id}', [CityController::class, "updateCity"]);
-Route::delete('/varos-torlese/{id}', [CityController::class, "deleteCity"]);
-
-
-//});
-
+Route::put('/varos-modositas/{id}', [CityController::class, "updateCity"])->where('id', '[0-9]+');
+Route::delete('/varos-torlese/{id}', [CityController::class, "deleteCity"])->where('id', '[0-9]+');

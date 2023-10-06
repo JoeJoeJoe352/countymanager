@@ -24,21 +24,46 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read City $county
  * @mixin \Eloquent
  */
-class City extends Model {
+class City extends Model
+{
 
     use HasFactory;
 
     /**
-     * The table associated with the model.
+     * Táblanév.
      *
      * @var string
      */
     protected $table = 'city';
 
     /**
-     * Get the County for the City.
+     * Városhoz tartozó megye modell.
      */
-    public function county() {
+    public function county()
+    {
         return $this->belongsTo('App\Models\City');
     }
+
+    /**
+     * Elmenti az új város modellt
+     * @param int $countyId
+     * @param string $name
+     * @return self
+     * @throws \Symfony\Component\CssSelector\Exception\InternalErrorException
+     */
+    public static function saveNew(int $countyId, string $name): self
+    {
+        $model = new self();
+        $model->name = $name;
+        $model->county_id = $countyId;
+
+        if ($model->save())
+        {
+            return $model;
+        } else
+        {
+            throw new \Symfony\Component\CssSelector\Exception\InternalErrorException("Hiba történt a mentés során");
+        }
+    }
+    
 }

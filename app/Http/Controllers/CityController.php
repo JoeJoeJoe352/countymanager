@@ -26,37 +26,21 @@ class CityController extends Controller
             return response()->json(["data" => $validator->errors()], 400);
         }
 
-        $model = new City();
-        $model->name = $request->get("name");
-        $model->county_id = $request->get("county_id");
-        $saveSuccess = $model->save();
+        $model = City::saveNew($request->get("county_id"), $request->get("name"));
 
-        if ($saveSuccess)
-        {
-            return response()->json(["data" => $model->id], 201);
-        } else
-        {
-            return response()->json(["data" => "Hiba történt a mentés során"], 500);
-        }
+        return response()->json(["data" => $model->id], 201);
     }
 
     /**
      * Módosítja a megadott id-hoz tartozó várost. Most mindenki módosíthatja mindenki városát
      * @param int $id
      */
-    public function updateCity(Request $request, int $id = 0)
+    public function updateCity(Request $request, int $id)
     {
-        if ($id == 0)
-        {
-            return response()->json(["data" => "Hiányzó város azonosító"], 400);
-        }
-        $cityModel = City::find($id);
-        if (!$cityModel)
-        {
-            return response()->json(["data" => "Nem létezik város ilyen azonosítóval"], 404);
-        }
+        $cityModel = $this->preprocessData($id);
+
         $validator = Validator::make($request->all(), [
-                    'name' => 'required|max:255|min:2|unique:city,name,'.$cityModel->id,
+                    'name' => 'required|max:255|min:2|unique:city,name,' . $cityModel->id,
                         ], $this->getValidatorMessages());
         if ($validator->fails())
         {
@@ -78,20 +62,9 @@ class CityController extends Controller
      * Törli a megadott id-hoz tartozó várost. Most mindenki törölheti mindenki városát
      * @param int $id
      */
-    public function deleteCity(int $id = 0)
+    public function deleteCity(int $id)
     {
-        if ($id == 0)
-        {
-            return response()->json(["data" => "Hiányzó város azonosító"], 400);
-        }
-        $deleteSuccess = City::find($id)->delete();
-        if ($deleteSuccess)
-        {
-            return response()->json("Sikeres törlés", 204);
-        } else
-        {
-            return response()->json("Hiba történt a törlés során", 500);
-        }
+return response()->json(["alma"], 204);
     }
 
     /**
@@ -109,5 +82,22 @@ class CityController extends Controller
             'name.max' => 'Városnév túl hosszú!',
             'name.min' => 'Városnév legalább két karakter legyen!',
         ];
+    }
+
+    /**
+     * Előfeldolgozza az adatokat és exceptiont dob, ha gond van
+     * @param int $id
+     * @return City
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+     */
+    private function preprocessData(int $id): City
+    {
+        $cityModel = City::find($id);
+
+        if (!$cityModel)
+        {
+            throw new \Illuminate\Database\Eloquent\ModelNotFoundException("Nem létezik város ilyen azonosítóval", 404);
+        }
+        return $cityModel;
     }
 }
