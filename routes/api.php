@@ -37,6 +37,11 @@ Route::get('/varosok-listazasa', function (Request $request)
 {
     return new CityCollection(City::all());
 });
+
+Route::get('/varosok-listazasa/{countyId}', function (Request $request, int $countyId)
+{
+    return new CityCollection(City::where(["county_id"=>$countyId])->get());
+});
 Route::get('/megyek-listazasa', function (Request $request)
 {
     return new CountyCollection(County::all());

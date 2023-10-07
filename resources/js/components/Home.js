@@ -11,7 +11,7 @@ export default class Home extends Component {
         super(props);
 
         this.state = {
-            counties: false,
+            counties: {},
             options: {},
             countyId: null,
         };
@@ -38,8 +38,8 @@ export default class Home extends Component {
                 });
     }
 
-    setErrorMessage(message){
-         document.getElementById("error-county_id").innerHTML = message;
+    setErrorMessage(message) {
+        document.getElementById("error-county_id").innerHTML = message;
     }
 
     render() {
@@ -55,14 +55,17 @@ export default class Home extends Component {
                                         }}
                                     placeholder="Select an option" 
                                     />
-                                    <div className="input-error" id="error-county_id"></div>
+                                <div className="input-error" id="error-county_id"></div>
                             </div>
                             <div className="city-saver">
                                 <NewCitySaver countyId={this.state.countyId} setErrorMessage={this.setErrorMessage}/>
                             </div>
                         </div>
+                
                         <div className="col-md-6"> 
-                        <CityList countyId={this.state.countyId}/>
+                            {this.state.countyId !==null &&
+                                    <CityList countyId={this.state.countyId}/>
+                            }
                         </div>
                     </div>
                 </div>

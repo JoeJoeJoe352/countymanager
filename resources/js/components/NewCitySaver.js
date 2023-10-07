@@ -10,8 +10,6 @@ const AJAX_HEADERS = {
     //'Authorization': 'Bearer ' + Laravel.apiKey,
 };
 
-
-
 export default class NewCitySaver extends Component {
     constructor(props) {
         super(props);
@@ -29,6 +27,7 @@ export default class NewCitySaver extends Component {
     validateTextFieldValue(e) {
         this.validateTextField(e.target.value)
     }
+    
     validateTextField(value) {
         document.getElementById("error-name").innerHTML = "";
         this.props.setErrorMessage("");
@@ -57,27 +56,30 @@ export default class NewCitySaver extends Component {
         if (!this.validateTextField(this.state.cityName)) {
             return;
         }
+        try {
+            axios.post('/api/uj-varos', {
+                county_id: this.props.countyId,
+                name: this.state.cityName
+            }, {
+                headers: AJAX_HEADERS,
+            }).then(result => {
+                if (result.data.success) {
+                    alert("Sikeres mentés");
+                } else {
+                    document.getElementById("error-name").innerHTML = "";
+                    this.props.setErrorMessage("");
 
-        axios.post('/api/uj-varos', {
-            county_id: this.props.countyId,
-            name: this.state.cityName
-        }, {
-            headers: AJAX_HEADERS,
-        }).then(result => {
-            if (result.data.success) {
-                alert("Sikeres mentés");
-            } else {
-                document.getElementById("error-name").innerHTML = "";
-                this.props.setErrorMessage("");
-
-                if (typeof result.data.data.name !== "undefined") {
-                    document.getElementById("error-name").innerHTML = result.data.data.name;
+                    if (typeof result.data.data.name !== "undefined") {
+                        document.getElementById("error-name").innerHTML = result.data.data.name;
+                    }
+                    if (typeof result.data.data.county_id !== "undefined") {
+                        this.props.setErrorMessage(result.data.data.county_id);
+                    }
                 }
-                if (typeof result.data.data.county_id !== "undefined") {
-                    this.props.setErrorMessage(result.data.data.county_id);
-                }
-            }
-        });
+            });
+        } catch (e) {
+            alert("Hiba történt a mentés során");
+        }
     }
 
     render() {
@@ -97,7 +99,6 @@ export default class NewCitySaver extends Component {
                     <div className="input-error" id={"error-name"}></div>
                 
                     <button type="submit" className="btn btn-success" onClick={this.saveForm}>Város mentése</button>
-                
                 </div>
                 );
     }

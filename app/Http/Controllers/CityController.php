@@ -59,7 +59,7 @@ class CityController extends Controller
     }
 
     /**
-     * Törli a megadott id-hoz tartozó várost. Most mindenki törölheti mindenki városát
+     * Törli a megadott id-hoz tartozó várost. 
      * @param int $id
      */
     public function deleteCity(int $id)
@@ -68,7 +68,7 @@ class CityController extends Controller
         $deleteSuccess = $cityModel->delete();
         if ($deleteSuccess)
         {
-            return response()->json(["data" => true, "success" => true], 204);
+            return response()->json(["data" => true, "success" => true], 200);
         } else
         {
             return response()->json(["data" => "Hiba történt a törlés során", "success" => false], 500);

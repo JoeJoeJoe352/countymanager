@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+import CityListRow from './CityListRow';
 
 const AJAX_HEADERS = {
     'Content-Type': 'application/json',
@@ -11,62 +12,47 @@ const AJAX_HEADERS = {
 };
 
 export default class CityList extends Component {
+
     constructor(props) {
         super(props);
 
         this.state = {
-            cityName: "",
+            cities: null,
         };
-        this.validateTextFieldValue = this.validateTextFieldValue.bind(this);
-        this.validateTextField = this.validateTextField.bind(this);
-        this.saveForm = this.saveForm.bind(this);
+
+        this.getCityData = this.getCityData.bind(this);
+        this.getCityData();
     }
 
-    componentDidUpdate() {
-console.log("asd");
-    }
-
-    validateTextFieldValue(e) {
-        this.validateTextField(e.target.value)
-    }
-    validateTextField(value) {
-        if (value === "" || typeof value == "undefined") {
-            document.getElementById("error-list-name").innerHTML = "Kötelezően kitöltendő mező";
-            return false;
-        } else {
-            document.getElementById("error-list-name").innerHTML = "";
-            return true;
-        }
-    }
-
-    saveForm(event) {
-        event.preventDefault();
-        if (!this.validateTextField(this.state.cityName)) {
-            return;
-        }
-        axios.post('/api/uj-varos', {
-            county_id: this.props.countyId,
-            name: this.state.cityName
-        }, {
-            headers: AJAX_HEADERS,
-        })
+    getCityData() {
+        var thisModel = this;
+        //axios.get('/api/varosok-listazasa?api_token=' + Laravel.apiKey)
+        axios.get('/api/varosok-listazasa/' + thisModel.props.countyId)
                 .then(result => {
                     let dropdownData = [];
-                    result.data.data.forEach(function (apiData, index) {
-                        dropdownData.push({value: apiData.id, label: apiData.name});
+                    result.data.data.forEach(function (apiData) {
+                        dropdownData.push({id: apiData.id, name: apiData.name});
                     });
-
-                    thisModel.setState({counties: dropdownData});
+                    thisModel.setState({cities: dropdownData});
                 });
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.countyId !== this.props.countyId) {
+            this.getCityData();
+        }
+    }
+
     render() {
-        return (
-                <div>
-                    CityLista
-                
+        if (this.state.cities == null) {
+            return (<div></div>);
+        } else {
+            return <div className="row">
+                <div className="col-lg-12">
+                    { this.state.cities.map(city => <CityListRow cityId={city.id} name={city.name} key={city.id} getCityData={this.getCityData}></CityListRow>) }
                 </div>
-                );
+            </div>
+        }
     }
 
 }
