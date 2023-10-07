@@ -23,12 +23,12 @@ class CityController extends Controller
 
         if ($validator->fails())
         {
-            return response()->json(["data" => $validator->errors()], 400);
+            return response()->json(["data" => $validator->errors(), "success" => false], 200);
         }
 
         $model = City::saveNew($request->get("county_id"), $request->get("name"));
 
-        return response()->json(["data" => $model->id], 201);
+        return response()->json(["data" => $model->id, "success" => true], 201);
     }
 
     /**
@@ -44,17 +44,17 @@ class CityController extends Controller
                         ], $this->getValidatorMessages());
         if ($validator->fails())
         {
-            return response()->json(["data" => $validator->errors()], 400);
+            return response()->json(["data" => $validator->errors(), "success" => false], 200);
         }
 
         $cityModel->name = $request->get("name");
         $saveSuccess = $cityModel->save();
         if ($saveSuccess)
         {
-            return response()->json(["data" => true], 200);
+            return response()->json(["data" => true, "success" => true], 200);
         } else
         {
-            return response()->json(["data" => "Hiba történt a mentés során"], 500);
+            return response()->json(["data" => "Hiba történt a mentés során", "success" => false], 500);
         }
     }
 
@@ -64,7 +64,15 @@ class CityController extends Controller
      */
     public function deleteCity(int $id)
     {
-return response()->json(["alma"], 204);
+        $cityModel = $this->preprocessData($id);
+        $deleteSuccess = $cityModel->delete();
+        if ($deleteSuccess)
+        {
+            return response()->json(["data" => true, "success" => true], 204);
+        } else
+        {
+            return response()->json(["data" => "Hiba történt a törlés során", "success" => false], 500);
+        }
     }
 
     /**

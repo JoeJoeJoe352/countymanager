@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\CityController;
 use App\Http\Resources\CityCollection;
+use App\Http\Resources\CountyCollection;
 use App\Models\City;
+use App\Models\County;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -34,6 +36,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/varosok-listazasa', function (Request $request)
 {
     return new CityCollection(City::all());
+});
+Route::get('/megyek-listazasa', function (Request $request)
+{
+    return new CountyCollection(County::all());
 });
 
 Route::post('/uj-varos', [CityController::class, "saveCity"]);
