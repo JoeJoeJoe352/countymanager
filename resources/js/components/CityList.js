@@ -24,32 +24,46 @@ export default class CityList extends Component {
         this.getCityData();
     }
 
-    getCityData() {
+    getCityData(lastElementShouldFadeIn = false) {
         var thisModel = this;
         //axios.get('/api/varosok-listazasa?api_token=' + Laravel.apiKey)
         axios.get('/api/varosok-listazasa/' + thisModel.props.countyId)
                 .then(result => {
-                    let dropdownData = [];
-                    result.data.data.forEach(function (apiData) {
-                        dropdownData.push({id: apiData.id, name: apiData.name});
+                    let cityListData = [];
+                    let jsonSize = result.data.data.length - 1;
+                    result.data.data.forEach(function (apiData, key) {
+                        cityListData.push({id: apiData.id, name: apiData.name, fadeIn: (lastElementShouldFadeIn && key == jsonSize)});
                     });
-                    thisModel.setState({cities: dropdownData});
-                });
+                    thisModel.setState({cities: cityListData});
+                }).catch(function (e) {
+            console.log(e);
+            document.getElementById("cityListDiv").innerHTML = "hiba történt az adatok lekérése során, próbáld újra később";
+        });
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (prevProps.countyId !== this.props.countyId) {
-            this.getCityData();
+        let dropdownChangeUpdate = prevProps.countyId !== this.props.countyId;
+        let newItemSavedUpdate = prevProps.rerenderCounter !== this.props.rerenderCounter;
+        if (dropdownChangeUpdate || newItemSavedUpdate) {
+            this.getCityData(newItemSavedUpdate);
         }
     }
 
     render() {
         if (this.state.cities == null) {
-            return (<div></div>);
+            return (<div id="cityListDiv"></div>);
         } else {
-            return <div className="row">
+            return <div className="row" id="cityListDiv">
                 <div className="col-lg-12">
-                    { this.state.cities.map(city => <CityListRow cityId={city.id} name={city.name} key={city.id} getCityData={this.getCityData}></CityListRow>) }
+                    { this.state.cities.map(city =>
+                                <CityListRow 
+                                    cityId={city.id} 
+                                    name={city.name} 
+                                    key={city.id} 
+                                    fadeIn={city.fadeIn} 
+                                    getCityData={this.getCityData}></CityListRow
+                                >)
+                    }
                 </div>
             </div>
         }

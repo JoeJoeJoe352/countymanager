@@ -14,7 +14,7 @@ const AJAX_HEADERS = {
 export default class CityListRow extends Component {
     constructor(props) {
         /*
-         * props: cityId, key, name
+         * props: cityId, key, name, fadeIn
          */
         super(props);
 
@@ -29,7 +29,9 @@ export default class CityListRow extends Component {
     }
 
     reRenderCityList() {
+        console.log("citylistrow")
         this.props.getCityData();
+        this.changeFormToButton();
     }
 
     changeButtonToForm() {
@@ -41,13 +43,17 @@ export default class CityListRow extends Component {
 
     render() {
         let formElement = null;
-
+        let fadeInClass = this.props.fadeIn ? "btn btn-success fade-in" : "btn btn-success";
         if (this.state.isButton) {
-            formElement = <button type="submit" className="btn btn-success" onClick={this.changeButtonToForm}>{this.props.name}</button>;
+            formElement = <button 
+                type="submit" 
+                className={fadeInClass}
+                onClick={this.changeButtonToForm}
+                >{this.props.name}</button>;
         } else {
             formElement = <CityModifier 
                 cityId={this.props.cityId} 
-                name={this.props.name} 
+                cityName={this.props.name} 
                 changeFormToButton={this.changeFormToButton}
                 reRenderCityList={this.reRenderCityList}>
             </CityModifier>;
@@ -55,7 +61,6 @@ export default class CityListRow extends Component {
         return (
                 <div>
                     {formElement}
-                
                 </div>
                 );
     }

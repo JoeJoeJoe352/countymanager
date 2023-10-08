@@ -27,7 +27,7 @@ export default class NewCitySaver extends Component {
     validateTextFieldValue(e) {
         this.validateTextField(e.target.value)
     }
-    
+
     validateTextField(value) {
         document.getElementById("error-name").innerHTML = "";
         this.props.setErrorMessage("");
@@ -53,31 +53,40 @@ export default class NewCitySaver extends Component {
 
     saveForm(event) {
         event.preventDefault();
+        var thisModel = this;
         if (!this.validateTextField(this.state.cityName)) {
             return;
         }
         try {
             axios.post('/api/uj-varos', {
-                county_id: this.props.countyId,
-                name: this.state.cityName
+                county_id: thisModel.props.countyId,
+                name: thisModel.state.cityName
             }, {
                 headers: AJAX_HEADERS,
             }).then(result => {
+
+                document.getElementById("error-name").innerHTML = "";
+                document.getElementById("cityName").value = "";
+
                 if (result.data.success) {
-                    alert("Sikeres mentés");
+                    thisModel.props.rerenderCityList();
                 } else {
-                    document.getElementById("error-name").innerHTML = "";
-                    this.props.setErrorMessage("");
+                    thisModel.props.setErrorMessage("");
 
                     if (typeof result.data.data.name !== "undefined") {
                         document.getElementById("error-name").innerHTML = result.data.data.name;
                     }
                     if (typeof result.data.data.county_id !== "undefined") {
-                        this.props.setErrorMessage(result.data.data.county_id);
+                        thisModel.props.setErrorMessage(result.data.data.county_id);
                     }
                 }
+            }).catch(function (e) {
+                console.log(e);
+                alert("Váratlan hiba történt a mentés során, kérlek próbáld újra később");
             });
+            ;
         } catch (e) {
+            console.log(e);
             alert("Hiba történt a mentés során");
         }
     }
@@ -89,7 +98,7 @@ export default class NewCitySaver extends Component {
                         placeholder="Város neve"
                         type="text"
                         name="city_name"
-                        id="city_name"
+                        id="cityName"
                         className="form-control"
                         onBlur={this.validateTextFieldValue}
                         onChange={(item) => {

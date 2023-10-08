@@ -13,7 +13,8 @@ class DeleteSuccessTest extends TestCase
                 ->assertStatus(201);
 
         $response = $this->json('DELETE', '/api/varos-torlese/1')
-                ->assertStatus(204);
+                ->assertStatus(200)
+                ->assertJson(["data" => true]);
         
     }
 

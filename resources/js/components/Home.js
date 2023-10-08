@@ -14,9 +14,11 @@ export default class Home extends Component {
             counties: {},
             options: {},
             countyId: null,
+            rerenderCounter: 0
         };
         this.getDropdownData = this.getDropdownData.bind(this);
         this.setErrorMessage = this.setErrorMessage.bind(this);
+        this.rerenderCityList = this.rerenderCityList.bind(this);
         this.getDropdownData();
     }
 
@@ -35,16 +37,25 @@ export default class Home extends Component {
                     });
 
                     thisModel.setState({counties: dropdownData});
-                });
+                }).catch(function (e) {
+            console.log(e);
+            document.getElementById("homeDiv").innerHTML = "hiba történt az adatok lekérése során, próbáld újra később";
+        });
+
     }
 
     setErrorMessage(message) {
         document.getElementById("error-county_id").innerHTML = message;
     }
 
+    rerenderCityList() {
+        this.setState({rerenderCounter: this.state.rerenderCounter + 1})
+    }
+
     render() {
+
         return (
-                <div>
+                <div className="home-div" id="homeDiv">
                     <div className="row justify-content-center">
                         <div className="col-md-6"> 
                             <div className="county-dropdown">
@@ -57,14 +68,23 @@ export default class Home extends Component {
                                     />
                                 <div className="input-error" id="error-county_id"></div>
                             </div>
-                            <div className="city-saver">
-                                <NewCitySaver countyId={this.state.countyId} setErrorMessage={this.setErrorMessage}/>
-                            </div>
+                            { this.state.countyId !== null &&
+                                    <div className="city-saver">
+                                        <NewCitySaver 
+                                            countyId={this.state.countyId} 
+                                            setErrorMessage={this.setErrorMessage}
+                                            rerenderCityList={this.rerenderCityList}
+                                            />
+                                    </div>
+                            }
                         </div>
                 
                         <div className="col-md-6"> 
-                            {this.state.countyId !==null &&
-                                    <CityList countyId={this.state.countyId}/>
+                            {this.state.countyId !== null &&
+                                    <CityList 
+                                        rerenderCounter={this.state.rerenderCounter}
+                                        countyId={this.state.countyId}
+                                        />
                             }
                         </div>
                     </div>
