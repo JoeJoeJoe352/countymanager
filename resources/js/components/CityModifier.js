@@ -2,14 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import CityListRow from './CityListRow';
-
-const AJAX_HEADERS = {
-    'Content-Type': 'application/json',
-    //'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-    'X-Requested-With': 'XMLHttpRequest',
-    "Accept": "application/json",
-    //'Authorization': 'Bearer ' + Laravel.apiKey,
-};
+import {AJAX_HEADERS} from '../data/request-helper.js';
 
 export default class CityModifier extends Component {
 
@@ -38,7 +31,7 @@ export default class CityModifier extends Component {
     }
 
     updateCity() {
-        if(!this.validateTextFieldValue()){
+        if (!this.validateTextFieldValue()) {
             return;
         }
         var thisModel = this;
@@ -70,16 +63,14 @@ export default class CityModifier extends Component {
         });
     }
 
-
-    
-    getErrorDivId(){
+    getErrorDivId() {
         return "error-name" + this.props.id;
     }
 
     render() {
         return (
                 <div className="row">
-                    <div className="col-lg-6">
+                    <div className="col-lg-3">
                         <input
                             placeholder="Város neve"
                             defaultValue={this.state.cityName}
@@ -95,7 +86,7 @@ export default class CityModifier extends Component {
                         <div className="input-error" id={this.getErrorDivId()}></div>
                 
                     </div>
-                    <div className="col-lg-6 city-manage-buttons text-right">
+                    <div className="col-lg-3 city-manage-buttons text-right">
                         <button type="button" className="btn btn-error" onClick={this.deleteCity}>Törlés</button>
                         <button type="button" className="btn btn-success" onClick={this.updateCity}>Módosít</button>
                         <button type="button" className="btn btn-secondary" onClick={this.props.changeFormToButton}>Mégsem</button>

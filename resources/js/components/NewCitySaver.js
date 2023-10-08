@@ -1,14 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-
-const AJAX_HEADERS = {
-    'Content-Type': 'application/json',
-    //'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-    'X-Requested-With': 'XMLHttpRequest',
-    "Accept": "application/json",
-    //'Authorization': 'Bearer ' + Laravel.apiKey,
-};
+import {AJAX_HEADERS} from '../data/request-helper.js';
 
 export default class NewCitySaver extends Component {
     constructor(props) {

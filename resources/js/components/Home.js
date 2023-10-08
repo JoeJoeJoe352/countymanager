@@ -5,6 +5,7 @@ import NewCitySaver from './NewCitySaver';
 import CityList from './CityList';
 import 'react-dropdown/style.css';
 import axios from 'axios';
+import {AJAX_HEADERS} from '../data/request-helper.js';
 
 export default class Home extends Component {
     constructor(props) {
@@ -29,7 +30,7 @@ export default class Home extends Component {
     getDropdownData() {
         var thisModel = this;
         //axios.get('/api/varosok-listazasa?api_token=' + Laravel.apiKey)
-        axios.get('/api/megyek-listazasa')
+        axios.get('/api/megyek-listazasa', {token: "asdasd"}, {headers: AJAX_HEADERS})
                 .then(result => {
                     let dropdownData = [];
                     result.data.data.forEach(function (apiData, index) {
@@ -57,7 +58,7 @@ export default class Home extends Component {
         return (
                 <div className="home-div" id="homeDiv">
                     <div className="row justify-content-center">
-                        <div className="col-md-6"> 
+                        <div className="col-md-12"> 
                             <div className="county-dropdown">
                                 <Dropdown 
                                     options={this.state.counties} 
@@ -78,15 +79,15 @@ export default class Home extends Component {
                                             />
                                     </div>
                             }
-                        </div>
                 
-                        <div className="col-md-6"> 
-                            {this.state.countyId !== null &&
+                            <div className="city-list"> 
+                                {this.state.countyId !== null &&
                                     <CityList 
                                         rerenderCounter={this.state.rerenderCounter}
                                         countyId={this.state.countyId}
                                         />
-                            }
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>

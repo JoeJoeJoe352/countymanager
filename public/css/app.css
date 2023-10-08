@@ -12028,9 +12028,6 @@ textarea.form-control-lg {
 #home .city-manage-buttons button {
   margin: 0 5px;
 }
-#home .city-list-row:nth-child(5n) {
-  border-bottom: 1px solid black;
-}
 
 .btn-success {
   background-color: #009745 !important;

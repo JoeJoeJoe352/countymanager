@@ -7,7 +7,7 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 class CountyCollection extends ResourceCollection
 {
     /**
-     * Transform the resource collection into an array.
+     * Megye resource json formátummá alakító kollekció
      *
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable

@@ -12,11 +12,6 @@
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-        <?php
-        $apiKeyArray = json_encode([
-            'apiKey' => $apiKey ?? null,
-        ]);
-        ?>
     </head>
     <body>
         <div class="container">
@@ -31,7 +26,12 @@
             </div>
         </div>
 
-
+        <script>
+            window.Laravel = {!! json_encode([
+                    'apiKey' => $apiKey ?? null,
+            ]) !!}
+            ;
+        </script>
         <script src="{{ asset('/js/app.js') }}"></script>
     </body>
 </html>

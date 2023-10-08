@@ -19,19 +19,6 @@ use Illuminate\Support\Facades\Route;
   |
  */
 
-//Route::middleware('auth:sanctum')->get('/user', function (Request $request)
-//{
-//    return $request->user();
-//});
-//
-//Route::middleware('auth:api')->get('/user', function (Request $request)
-//{
-//    return $request->user();
-//});
-//
-//Route::group(['middleware' => ['auth:api']], function ()
-//{
-
 
 Route::get('/varosok-listazasa', function (Request $request)
 {
@@ -40,7 +27,7 @@ Route::get('/varosok-listazasa', function (Request $request)
 
 Route::get('/varosok-listazasa/{countyId}', function (Request $request, int $countyId)
 {
-    return new CityCollection(City::where(["county_id"=>$countyId])->get());
+    return new CityCollection(City::where(["county_id" => $countyId])->get());
 });
 Route::get('/megyek-listazasa', function (Request $request)
 {
@@ -50,3 +37,4 @@ Route::get('/megyek-listazasa', function (Request $request)
 Route::post('/uj-varos', [CityController::class, "saveCity"]);
 Route::put('/varos-modositas/{id}', [CityController::class, "updateCity"])->where('id', '[0-9]+');
 Route::delete('/varos-torlese/{id}', [CityController::class, "deleteCity"])->where('id', '[0-9]+');
+

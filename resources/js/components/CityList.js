@@ -2,14 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import CityListRow from './CityListRow';
-
-const AJAX_HEADERS = {
-    'Content-Type': 'application/json',
-    //'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-    'X-Requested-With': 'XMLHttpRequest',
-    "Accept": "application/json",
-    //'Authorization': 'Bearer ' + Laravel.apiKey,
-};
+import {AJAX_HEADERS} from '../data/request-helper.js';
 
 export default class CityList extends Component {
 
@@ -28,8 +21,7 @@ export default class CityList extends Component {
 
     getCityData(lastElementShouldFadeIn = false) {
         var thisModel = this;
-        //axios.get('/api/varosok-listazasa?api_token=' + Laravel.apiKey)
-        axios.get('/api/varosok-listazasa/' + thisModel.props.countyId)
+        axios.get('/api/varosok-listazasa/' + thisModel.props.countyId, {}, {headers:AJAX_HEADERS})
                 .then(result => {
                     let cityListData = [];
                     let jsonSize = result.data.data.length - 1;

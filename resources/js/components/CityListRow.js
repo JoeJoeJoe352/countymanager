@@ -1,15 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import axios from 'axios';
 import CityModifier from './CityModifier';
 
-const AJAX_HEADERS = {
-    'Content-Type': 'application/json',
-    //'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-    'X-Requested-With': 'XMLHttpRequest',
-    "Accept": "application/json",
-    //'Authorization': 'Bearer ' + Laravel.apiKey,
-};
 
 export default class CityListRow extends Component {
     constructor(props) {
@@ -72,7 +64,7 @@ export default class CityListRow extends Component {
             </CityModifier>;
         }
         return (
-                <div class="city-list-row">
+                <div className="city-list-row">
                     {formElement}
                 </div>
                 );

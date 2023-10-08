@@ -6,23 +6,18 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
+    const API_KEY = "f906dbbba23755d0eba8cbdc1b670cbe";
+    
     /**
-     * Show the application dashboard.
+     * Alkalmazás kezelőfelülete.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
     {
-        return view('home');
+        return view('welcome', [
+            "apiKey" => self::API_KEY,
+        ]);
     }
 }

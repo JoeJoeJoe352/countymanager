@@ -7,7 +7,7 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 class CityCollection extends ResourceCollection
 {
     /**
-     * Transform the resource collection into an array.
+     * Város resource json formátummá alakító kollekció
      *
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
