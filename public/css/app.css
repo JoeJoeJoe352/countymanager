@@ -11977,19 +11977,35 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
-.input-error {
+.header {
+  margin-top: 50px;
+  height: 125px;
+}
+.header .logo-div img {
+  height: 125px;
+  width: 100%;
+}
+.header .title-div h1, .header .title-div .h1 {
+  line-height: 125px;
+}
+
+#home {
+  margin-top: 20px;
+}
+#home .city-saver {
+  margin-top: 25px;
+}
+#home .input-error {
   color: #FF675B;
   margin: 10px 0;
 }
-
-.fade-in {
+#home .fade-in {
   opacity: 1;
   animation-name: fadeInOpacity;
   animation-iteration-count: 1;
   animation-timing-function: ease-in;
   animation-duration: 0.5s;
 }
-
 @keyframes fadeInOpacity {
   0% {
     opacity: 0;
@@ -11998,21 +12014,22 @@ textarea.form-control-lg {
     opacity: 1;
   }
 }
-.text-right {
+#home .text-right {
   text-align: right;
 }
-
-#cityListDiv .btn-citylist {
-  background: #ff9900;
+#home #cityListDiv .btn-citylist {
+  background: #e08802;
   margin: 5px 0;
   color: white;
 }
-#cityListDiv .btn-citylist:hover {
-  background: #ffc266 !important;
+#home #cityListDiv .btn-citylist:hover {
+  background: #fdb74b !important;
 }
-
-.city-manage-buttons button {
+#home .city-manage-buttons button {
   margin: 0 5px;
+}
+#home .city-list-row:nth-child(5n) {
+  border-bottom: 1px solid black;
 }
 
 .btn-success {

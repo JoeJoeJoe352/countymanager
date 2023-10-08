@@ -18,12 +18,20 @@
         ]);
         ?>
     </head>
-    <div class="container">
-            <div id="home"></div>
+    <body>
+        <div class="container">
+            <div class="row header">
+                <div class="logo-div col-lg-2">
+                    <img src="/images/Counties_of_Hungary_2020.png"/>
+                </div>
+                <div class="title-div col-lg-4">
+                    <h1>Megyekezelő</h1>
+                </div>
+                <div id="home"></div>
+            </div>
+        </div>
 
-    </div>
 
-
-    <script src="{{ asset('/js/app.js') }}"></script>
-</body>
+        <script src="{{ asset('/js/app.js') }}"></script>
+    </body>
 </html>

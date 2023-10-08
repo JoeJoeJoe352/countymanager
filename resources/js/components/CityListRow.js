@@ -34,20 +34,24 @@ export default class CityListRow extends Component {
     }
 
     changeButtonToForm() {
-        this.props.closeAllCityModifierExcept(this.props.cityId);
         this.setState({isButton: false});
+        this.props.closeAllCityModifierWindow(this.props.cityId);
     }
-    
+
     changeFormToButton() {
         this.setState({isButton: true});
     }
-    
-    componentDidUpdate(){
-        console.log(this.props.closeWindowExcept);
-        console.log(this.props.cityId);
-        /*if(this.props.cityId !== this.props.closeWindowExcept){
-            this.changeFormToButton();
-        }*/
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.closeWindows !== this.props.closeWindows) {
+            if (this.props.closeWindows == this.props.cityId) {
+                this.setState({isButton: false});
+
+            } else {
+                this.setState({isButton: true});
+
+            }
+        }
     }
 
     render() {
@@ -68,7 +72,7 @@ export default class CityListRow extends Component {
             </CityModifier>;
         }
         return (
-                <div>
+                <div class="city-list-row">
                     {formElement}
                 </div>
                 );

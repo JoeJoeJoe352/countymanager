@@ -18,11 +18,11 @@ export default class CityList extends Component {
 
         this.state = {
             cities: null,
-            closeWindowExcept: null,
+            closeWindows: 0,
         };
 
         this.getCityData = this.getCityData.bind(this);
-        this.closeAllCityModifierExcept = this.closeAllCityModifierExcept.bind(this);
+        this.closeAllCityModifierWindow = this.closeAllCityModifierWindow.bind(this);
         this.getCityData();
     }
 
@@ -44,6 +44,7 @@ export default class CityList extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
+
         let dropdownChangeUpdate = prevProps.countyId !== this.props.countyId;
         let newItemSavedUpdate = prevProps.rerenderCounter !== this.props.rerenderCounter;
         if (dropdownChangeUpdate || newItemSavedUpdate) {
@@ -51,10 +52,8 @@ export default class CityList extends Component {
         }
     }
 
-    closeAllCityModifierExcept(id) {
-        console.log(id);
-        this.setState({closeWindowExcept:id});
-        console.log(this.state.closeWindowExcept);
+    closeAllCityModifierWindow(id) {
+        this.setState({closeWindows: id});
     }
 
     render() {
@@ -70,8 +69,8 @@ export default class CityList extends Component {
                                     key={city.id} 
                                     fadeIn={city.fadeIn} 
                                     getCityData={this.getCityData}
-                                    closeAllCityModifierExcept={this.closeAllCityModifierExcept}
-                                    closeWindowExcept={this.state.closeWindowExcept}
+                                    closeAllCityModifierWindow={this.closeAllCityModifierWindow}
+                                    closeWindows={this.state.closeWindows}
                                     ></CityListRow
                                 >)
                     }

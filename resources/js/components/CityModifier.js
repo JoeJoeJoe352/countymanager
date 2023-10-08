@@ -95,7 +95,7 @@ export default class CityModifier extends Component {
                         <div className="input-error" id={this.getErrorDivId()}></div>
                 
                     </div>
-                    <div className="col-lg-6 city-manage-buttons">
+                    <div className="col-lg-6 city-manage-buttons text-right">
                         <button type="button" className="btn btn-error" onClick={this.deleteCity}>Törlés</button>
                         <button type="button" className="btn btn-success" onClick={this.updateCity}>Módosít</button>
                         <button type="button" className="btn btn-secondary" onClick={this.props.changeFormToButton}>Mégsem</button>
