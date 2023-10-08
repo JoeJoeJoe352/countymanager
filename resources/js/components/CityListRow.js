@@ -29,21 +29,30 @@ export default class CityListRow extends Component {
     }
 
     reRenderCityList() {
-        console.log("citylistrow")
         this.props.getCityData();
         this.changeFormToButton();
     }
 
     changeButtonToForm() {
+        this.props.closeAllCityModifierExcept(this.props.cityId);
         this.setState({isButton: false});
     }
+    
     changeFormToButton() {
         this.setState({isButton: true});
+    }
+    
+    componentDidUpdate(){
+        console.log(this.props.closeWindowExcept);
+        console.log(this.props.cityId);
+        /*if(this.props.cityId !== this.props.closeWindowExcept){
+            this.changeFormToButton();
+        }*/
     }
 
     render() {
         let formElement = null;
-        let fadeInClass = this.props.fadeIn ? "btn btn-success fade-in" : "btn btn-success";
+        let fadeInClass = this.props.fadeIn ? "btn btn-citylist fade-in" : "btn btn-citylist";
         if (this.state.isButton) {
             formElement = <button 
                 type="submit" 

@@ -28,10 +28,8 @@ export default class CityModifier extends Component {
     }
 
     validateTextFieldValue() {
-        document.getElementById("error-name").innerHTML = "";
-        this.props.setErrorMessage("");
-
-        if (value === "" || typeof value == "undefined") {
+        document.getElementById(this.getErrorDivId()).innerHTML = "";
+        if (this.state.cityName === "" || typeof this.state.cityName == "undefined") {
             document.getElementById(this.getErrorDivId()).innerHTML = "Kötelezően kitöltendő mező";
             return false;
         } else {
@@ -97,7 +95,7 @@ export default class CityModifier extends Component {
                         <div className="input-error" id={this.getErrorDivId()}></div>
                 
                     </div>
-                    <div className="col-lg-6">
+                    <div className="col-lg-6 city-manage-buttons">
                         <button type="button" className="btn btn-error" onClick={this.deleteCity}>Törlés</button>
                         <button type="button" className="btn btn-success" onClick={this.updateCity}>Módosít</button>
                         <button type="button" className="btn btn-secondary" onClick={this.props.changeFormToButton}>Mégsem</button>

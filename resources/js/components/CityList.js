@@ -18,9 +18,11 @@ export default class CityList extends Component {
 
         this.state = {
             cities: null,
+            closeWindowExcept: null,
         };
 
         this.getCityData = this.getCityData.bind(this);
+        this.closeAllCityModifierExcept = this.closeAllCityModifierExcept.bind(this);
         this.getCityData();
     }
 
@@ -49,6 +51,12 @@ export default class CityList extends Component {
         }
     }
 
+    closeAllCityModifierExcept(id) {
+        console.log(id);
+        this.setState({closeWindowExcept:id});
+        console.log(this.state.closeWindowExcept);
+    }
+
     render() {
         if (this.state.cities == null) {
             return (<div id="cityListDiv"></div>);
@@ -61,7 +69,10 @@ export default class CityList extends Component {
                                     name={city.name} 
                                     key={city.id} 
                                     fadeIn={city.fadeIn} 
-                                    getCityData={this.getCityData}></CityListRow
+                                    getCityData={this.getCityData}
+                                    closeAllCityModifierExcept={this.closeAllCityModifierExcept}
+                                    closeWindowExcept={this.state.closeWindowExcept}
+                                    ></CityListRow
                                 >)
                     }
                 </div>

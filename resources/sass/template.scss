@@ -1,16 +1,45 @@
+
+.input-error{
+    color:$error-color;
+    margin: 10px 0;
+}
+
 .fade-in {
-	opacity: 1;
-	animation-name: fadeInOpacity;
-	animation-iteration-count: 1;
-	animation-timing-function: ease-in;
-	animation-duration: 0.5s;
+    opacity: 1;
+    animation-name: fadeInOpacity;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-duration: 0.5s;
 }
 
 @keyframes fadeInOpacity {
-	0% {
-		opacity: 0;
-	}
-	100% {
-		opacity: 1;
-	}
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.text-right{
+    text-align: right;
+}
+
+#cityListDiv{
+    .btn-citylist{
+        background: $orange-color;
+        margin: 5px 0;
+        color: $white-color;
+        &:hover{
+            background: lighten($orange-color, 20%) !important;
+        }
+    }
+}
+
+.city-manage-buttons{
+    button{
+        margin: 0 5px;
+
+    }
+
 }

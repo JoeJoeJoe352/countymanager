@@ -71,6 +71,7 @@ export default class Home extends Component {
                             { this.state.countyId !== null &&
                                     <div className="city-saver">
                                         <NewCitySaver 
+                                            rerenderCounter={this.state.rerenderCounter}
                                             countyId={this.state.countyId} 
                                             setErrorMessage={this.setErrorMessage}
                                             rerenderCityList={this.rerenderCityList}

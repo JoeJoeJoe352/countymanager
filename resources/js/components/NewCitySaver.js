@@ -29,12 +29,12 @@ export default class NewCitySaver extends Component {
     }
 
     validateTextField(value) {
-        document.getElementById("error-name").innerHTML = "";
+        document.getElementById("errorName").innerHTML = "";
         this.props.setErrorMessage("");
         let error = false;
 
         if (value === "" || typeof value == "undefined") {
-            document.getElementById("error-name").innerHTML = "Kötelezően kitöltendő mező";
+            document.getElementById("errorName").innerHTML = "Kötelezően kitöltendő mező";
             error = true;
         }
         if (this.props.countyId == null || typeof this.props.countyId == "undefined") {
@@ -42,7 +42,7 @@ export default class NewCitySaver extends Component {
             error = true;
         }
         if (!error) {
-            document.getElementById("error-name").innerHTML = "";
+            document.getElementById("errorName").innerHTML = "";
             return true;
         } else {
             return false;
@@ -64,17 +64,16 @@ export default class NewCitySaver extends Component {
             }, {
                 headers: AJAX_HEADERS,
             }).then(result => {
-
-                document.getElementById("error-name").innerHTML = "";
-                document.getElementById("cityName").value = "";
-
                 if (result.data.success) {
+                    this.setState({cityName: ""})
+                    document.getElementById("errorName").innerHTML = "";
+                    document.getElementById("cityName").value = "";
                     thisModel.props.rerenderCityList();
                 } else {
                     thisModel.props.setErrorMessage("");
 
                     if (typeof result.data.data.name !== "undefined") {
-                        document.getElementById("error-name").innerHTML = result.data.data.name;
+                        document.getElementById("errorName").innerHTML = result.data.data.name;
                     }
                     if (typeof result.data.data.county_id !== "undefined") {
                         thisModel.props.setErrorMessage(result.data.data.county_id);
@@ -93,21 +92,24 @@ export default class NewCitySaver extends Component {
 
     render() {
         return (
-                <div>
-                    <input
-                        placeholder="Város neve"
-                        type="text"
-                        name="city_name"
-                        id="cityName"
-                        className="form-control"
-                        onBlur={this.validateTextFieldValue}
-                        onChange={(item) => {
-                                this.setState({cityName: item.target.value})
-                            }}
-                        />
-                    <div className="input-error" id={"error-name"}></div>
-                
-                    <button type="submit" className="btn btn-success" onClick={this.saveForm}>Város mentése</button>
+                <div className="row">
+                    <div className="col-lg-9">
+                        <input
+                            placeholder="Város neve"
+                            type="text"
+                            name="city_name"
+                            id="cityName"
+                            className="form-control"
+                            onBlur={this.validateTextFieldValue}
+                            onChange={(item) => {
+                                    this.setState({cityName: item.target.value})
+                                }}
+                            />
+                        <div className="input-error" id={"errorName"}></div>
+                    </div>
+                    <div className="col-lg-3 text-right">
+                        <button type="submit" className="btn btn-success" onClick={this.saveForm}>Város mentése</button>
+                    </div>
                 </div>
                 );
     }

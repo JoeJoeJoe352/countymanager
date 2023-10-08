@@ -1,21 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);
 @charset "UTF-8";
-.fade-in {
-  opacity: 1;
-  animation-name: fadeInOpacity;
-  animation-iteration-count: 1;
-  animation-timing-function: ease-in;
-  animation-duration: 0.5s;
-}
-
-@keyframes fadeInOpacity {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
 /*!
  * Bootstrap  v5.3.2 (https://getbootstrap.com/)
  * Copyright 2011-2023 The Bootstrap Authors
@@ -11992,4 +11976,54 @@ textarea.form-control-lg {
   .d-print-none {
     display: none !important;
   }
+}
+.input-error {
+  color: #FF675B;
+  margin: 10px 0;
+}
+
+.fade-in {
+  opacity: 1;
+  animation-name: fadeInOpacity;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-duration: 0.5s;
+}
+
+@keyframes fadeInOpacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.text-right {
+  text-align: right;
+}
+
+#cityListDiv .btn-citylist {
+  background: #ff9900;
+  margin: 5px 0;
+  color: white;
+}
+#cityListDiv .btn-citylist:hover {
+  background: #ffc266 !important;
+}
+
+.city-manage-buttons button {
+  margin: 0 5px;
+}
+
+.btn-success {
+  background-color: #009745 !important;
+}
+
+.btn-error {
+  color: white !important;
+  background-color: #FF675B !important;
+}
+
+.btn-secondary {
+  background-color: #4A5784 !important;
 }
