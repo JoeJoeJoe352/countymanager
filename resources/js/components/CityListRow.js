@@ -20,25 +20,35 @@ export default class CityListRow extends Component {
 
     }
 
+    /**
+     * Város listát újra renderelteti
+     */
     reRenderCityList() {
         this.props.getCityData();
         this.changeFormToButton();
     }
 
+    /**
+     * Város módosító gombsort visszalakítja gombbá
+     */
     changeButtonToForm() {
         this.setState({isButton: false});
         this.props.closeAllCityModifierWindow(this.props.cityId);
     }
-
+    /**
+     * Város módosító gombot átalakítja gombsorrá
+     */
     changeFormToButton() {
         this.setState({isButton: true});
     }
 
+    /**
+     * Csak az aktuálisan használt gombsort tartsuk meg, a többit alakítsuk vissza város gombbá
+     */
     componentDidUpdate(prevProps) {
         if (prevProps.closeWindows !== this.props.closeWindows) {
             if (this.props.closeWindows == this.props.cityId) {
                 this.setState({isButton: false});
-
             } else {
                 this.setState({isButton: true});
 

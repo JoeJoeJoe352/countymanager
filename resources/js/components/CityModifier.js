@@ -11,15 +11,16 @@ export default class CityModifier extends Component {
         this.state = {
             cityName: this.props.cityName,
         };
-        //reRenderCityList
-
         this.updateCity = this.updateCity.bind(this);
         this.deleteCity = this.deleteCity.bind(this);
         this.validateTextFieldValue = this.validateTextFieldValue.bind(this);
         this.getErrorDivId = this.getErrorDivId.bind(this);
-        // this.getCityData();
     }
 
+    /**
+     * Kliens oldali validálja a városnév inputot 
+     * @returns {bool} 
+     */
     validateTextFieldValue() {
         document.getElementById(this.getErrorDivId()).innerHTML = "";
         if (this.state.cityName === "" || typeof this.state.cityName == "undefined") {
@@ -29,7 +30,10 @@ export default class CityModifier extends Component {
             return true;
         }
     }
-
+    
+    /**
+     * Város nevét módosítja 
+     */
     updateCity() {
         if (!this.validateTextFieldValue()) {
             return;
@@ -49,6 +53,10 @@ export default class CityModifier extends Component {
         });
     }
 
+    /**
+     * Várost törli 
+     * @returns {type} 
+     */
     deleteCity() {
         var thisModel = this;
         axios.delete('/api/varos-torlese/' + thisModel.props.cityId, [], AJAX_HEADERS)
@@ -63,6 +71,10 @@ export default class CityModifier extends Component {
         });
     }
 
+    /**
+     * Hiba kiíró div ID-jával tér vissza 
+     * @returns {string} 
+     */
     getErrorDivId() {
         return "error-name" + this.props.id;
     }

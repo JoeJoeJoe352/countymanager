@@ -19,9 +19,14 @@ export default class CityList extends Component {
         this.getCityData();
     }
 
+    /**
+     * Város listát feltölti 
+     * @param {bool}  lastElementShouldFadeIn - Az utolsó elem fade-eljen-e be, vagy sem
+     * @returns {type} 
+     */
     getCityData(lastElementShouldFadeIn = false) {
         var thisModel = this;
-        axios.get('/api/varosok-listazasa/' + thisModel.props.countyId, {}, {headers:AJAX_HEADERS})
+        axios.get('/api/varosok-listazasa/' + thisModel.props.countyId, {}, {headers: AJAX_HEADERS})
                 .then(result => {
                     let cityListData = [];
                     let jsonSize = result.data.data.length - 1;
@@ -35,8 +40,10 @@ export default class CityList extends Component {
         });
     }
 
-    componentDidUpdate(prevProps, prevState) {
-
+    /**
+     * A túl sok ajax lekérés miatt csak akkor engedjük újratölteni a városlistát, ha a megyét módosították, vagy ha új elemet szúrtak be 
+     */
+    componentDidUpdate(prevProps) {
         let dropdownChangeUpdate = prevProps.countyId !== this.props.countyId;
         let newItemSavedUpdate = prevProps.rerenderCounter !== this.props.rerenderCounter;
         if (dropdownChangeUpdate || newItemSavedUpdate) {
@@ -44,6 +51,10 @@ export default class CityList extends Component {
         }
     }
 
+    /**
+     * @param {int}  id - az elem, ami maradjon nyitva
+     * Bezárja az összes város módosító gombsorát
+     */
     closeAllCityModifierWindow(id) {
         this.setState({closeWindows: id});
     }

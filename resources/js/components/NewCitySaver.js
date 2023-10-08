@@ -17,10 +17,18 @@ export default class NewCitySaver extends Component {
         this.saveForm = this.saveForm.bind(this);
     }
 
+    /**
+     * Szövegmezőt validálja 
+     */
     validateTextFieldValue(e) {
         this.validateTextField(e.target.value)
     }
-
+    
+    /**
+     * Validálja a városnév szövegmezőt és a megye inputot 
+     * @param {string}  value - Az utolsó elem fade-eljen-e be, vagy sem
+     * @returns {bool} 
+     */
     validateTextField(value) {
         document.getElementById("errorName").innerHTML = "";
         this.props.setErrorMessage("");
@@ -44,6 +52,11 @@ export default class NewCitySaver extends Component {
         return true;
     }
 
+    /**
+     * Elmenti a várost 
+     * @param {bool}  event
+     * @returns {type} 
+     */
     saveForm(event) {
         event.preventDefault();
         var thisModel = this;

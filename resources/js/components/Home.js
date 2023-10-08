@@ -27,9 +27,11 @@ export default class Home extends Component {
         this.getDropdownData();
     }
 
+    /**
+     * Megye dropdown adatokkal visszatér és feltölti egy tömbbe 
+     */
     getDropdownData() {
         var thisModel = this;
-        //axios.get('/api/varosok-listazasa?api_token=' + Laravel.apiKey)
         axios.get('/api/megyek-listazasa', {token: "asdasd"}, {headers: AJAX_HEADERS})
                 .then(result => {
                     let dropdownData = [];
@@ -44,17 +46,22 @@ export default class Home extends Component {
         });
 
     }
-
+    
+    /**
+     * Hibaüzenetet beállít a megye input alá 
+     */
     setErrorMessage(message) {
         document.getElementById("error-county_id").innerHTML = message;
     }
-
+    
+    /**
+     * Újrarendeli a városlistát (citylist)
+     */
     rerenderCityList() {
         this.setState({rerenderCounter: this.state.rerenderCounter + 1})
     }
 
     render() {
-
         return (
                 <div className="home-div" id="homeDiv">
                     <div className="row justify-content-center">

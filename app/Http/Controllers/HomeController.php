@@ -7,8 +7,11 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
 
+    /**
+     * Api kulcs, végül nem került bele az ellenőrzése
+     */
     const API_KEY = "f906dbbba23755d0eba8cbdc1b670cbe";
-    
+
     /**
      * Alkalmazás kezelőfelülete.
      *
