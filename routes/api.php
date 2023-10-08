@@ -34,7 +34,7 @@ Route::get('/megyek-listazasa', function (Request $request)
     return new CountyCollection(County::all());
 });
 
-Route::post('/uj-varos', [CityController::class, "saveCity"]);
-Route::put('/varos-modositas/{id}', [CityController::class, "updateCity"])->where('id', '[0-9]+');
-Route::delete('/varos-torlese/{id}', [CityController::class, "deleteCity"])->where('id', '[0-9]+');
+Route::post('/uj-varos', [CityController::class, "save"]);
+Route::put('/varos-modositas/{id}', [CityController::class, "update"])->where('id', '[0-9]+');
+Route::delete('/varos-torlese/{id}', [CityController::class, "delete"])->where('id', '[0-9]+');
 

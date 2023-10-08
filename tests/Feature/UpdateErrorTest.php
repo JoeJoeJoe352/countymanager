@@ -28,7 +28,7 @@ class UpdateErrorTest extends TestCase
                 ->assertStatus(201);
 
         $this->json('PUT', 'api/varos-modositas/1', ["name" => ""])
-                ->assertStatus(200)
+                ->assertStatus(203)
                 ->assertJson([
                     'data' => ["name" => ["Városnevet kötelező megadni!"]],
         ]);
@@ -40,7 +40,7 @@ class UpdateErrorTest extends TestCase
                 ->assertStatus(201);
 
         $this->json('PUT', 'api/varos-modositas/1')
-                ->assertStatus(200)
+                ->assertStatus(203)
                 ->assertJson([
                     'data' => ["name" => ["Városnevet kötelező megadni!"]],
         ]);

@@ -14,7 +14,7 @@ class CityController extends Controller
      * @param Request $request
      * @return type
      */
-    public function saveCity(Request $request)
+    public function save(Request $request)
     {
         $validator = Validator::make($request->all(), [
                     'name' => 'required|unique:city|max:255|min:2',
@@ -23,7 +23,7 @@ class CityController extends Controller
 
         if ($validator->fails())
         {
-            return response()->json(["data" => $validator->errors(), "success" => false], 200);
+            return response()->json(["data" => $validator->errors(), "success" => false], 203);
         }
 
         $model = City::saveNew($request->get("county_id"), $request->get("name"));
@@ -35,7 +35,7 @@ class CityController extends Controller
      * Módosítja a megadott id-hoz tartozó várost. Most mindenki módosíthatja mindenki városát
      * @param int $id
      */
-    public function updateCity(Request $request, int $id)
+    public function update(Request $request, int $id)
     {
         $cityModel = $this->preprocessData($id);
 
@@ -44,7 +44,7 @@ class CityController extends Controller
                         ], $this->getValidatorMessages());
         if ($validator->fails())
         {
-            return response()->json(["data" => $validator->errors(), "success" => false], 200);
+            return response()->json(["data" => $validator->errors(), "success" => false], 203);
         }
 
         $cityModel->name = $request->get("name");
@@ -62,7 +62,7 @@ class CityController extends Controller
      * Törli a megadott id-hoz tartozó várost. 
      * @param int $id
      */
-    public function deleteCity(int $id)
+    public function delete(int $id)
     {
         $cityModel = $this->preprocessData($id);
         $deleteSuccess = $cityModel->delete();
